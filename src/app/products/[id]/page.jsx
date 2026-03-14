@@ -8,7 +8,6 @@ import { FaCartPlus, FaStar } from "react-icons/fa";
 export async function generateMetadata({ params }) {
   const { id } = await params;
   const product = await getSingleProduct(id); // DB / API fetch
-  console.log(product);
 
   return {
     title: product.title,
@@ -41,7 +40,6 @@ export async function generateMetadata({ params }) {
 const ProductDetails = async ({ params }) => {
   const { id } = await params;
   const product = await getSingleProduct(id);
-  console.log(product);
 
   const { title, image, price, discount, ratings, reviews, sold, description, info, qna } = product;
 

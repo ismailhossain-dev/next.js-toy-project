@@ -1,18 +1,17 @@
 // import Image from "next/image";
 // import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 import { FaCartPlus, FaStar } from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
   const { title, image, price, ratings, reviews, sold, _id } = product;
-  console.log(_id);
-  console.log(image);
 
   return (
     <div className="card w-80 bg-base-100 shadow-lg relative">
       <figure className="p-4">
-        <img
+        <Image
           width={200}
           height={180}
           src={image}

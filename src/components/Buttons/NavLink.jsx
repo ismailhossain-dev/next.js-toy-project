@@ -5,12 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NavLink = ({ href, children }) => {
-  const path = usePathname();
+  const path = usePathname(); //check whit path
+  console.log(path);
 
   return (
     <Link
       href={href}
-      className={`${path.startsWith(href) ? "text-primary" : "text-black"} font-medium`}
+      className={`${
+        path === href ? "text-primary" : "text-gray-500 hover:text-primary"
+      } font-medium transition-colors duration-200`}
     >
       {children}
     </Link>

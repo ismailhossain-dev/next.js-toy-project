@@ -8,7 +8,6 @@ import { getProducts } from "@/actions/server/Product";
 
 const Products = async () => {
   const products = await getProducts();
-  console.log(products);
   return (
     <div>
       <h2 className="text-center text-4xl font-bold mb-10">Our Products</h2>
