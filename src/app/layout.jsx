@@ -43,7 +43,7 @@ export const metadata = {
   authors: [
     {
       name: "ToyBazaar Team",
-      url: "https://toybazzer.com",
+      url: "https://toybazaar-weld.vercel.app",
     },
   ],
 
@@ -54,7 +54,7 @@ export const metadata = {
     title: "ToyBazaar – Best Toys Shop for Kids",
     description:
       "Discover amazing toys for kids at ToyBazaar. Safe, fun and affordable toys available online.",
-    url: "https://toybazzer.com",
+    url: "https://toybazaar-weld.vercel.app",
     siteName: "ToyBazaar",
     images: [
       {
@@ -100,7 +100,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body className={`${poppins.className} antialiased`}>
         <nav className="w-11/12 mx-auto">
           <Navbar />

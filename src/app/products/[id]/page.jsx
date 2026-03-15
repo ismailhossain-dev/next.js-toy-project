@@ -1,5 +1,5 @@
 import { getSingleProduct } from "@/actions/server/Product";
-// import CartButton from "@/components/buttons/CartButton";
+import CartButton from "@/components/Buttons/CartButton";
 
 // import Image from "next/image";
 import React from "react";
@@ -87,7 +87,7 @@ const ProductDetails = async ({ params }) => {
         </div>
 
         {/* Actions */}
-        {/* <CartButton product={product}></CartButton> */}
+        <CartButton product={product}></CartButton>
       </div>
       <div className="col-span-full">
         {/* Description */}

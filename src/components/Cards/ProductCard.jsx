@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FaCartPlus, FaStar } from "react-icons/fa";
+import CartButton from "../Buttons/CartButton";
 
 const ProductCard = ({ product }) => {
   const { title, image, price, ratings, reviews, sold, _id } = product;
@@ -38,10 +39,7 @@ const ProductCard = ({ product }) => {
         </div>
 
         {/* Cart button */}
-        <button className="btn btn-primary btn-wide flex gap-2 justify-center items-center w-full">
-          <FaCartPlus />
-          Add to Cart
-        </button>
+        <CartButton />
 
         {/* <CartButton product={{ ...product, _id: _id.toString() }}></CartButton> */}
         <Link href={`/products/${_id}`} className="btn btn-primary btn-outline mt-4 w-full">
