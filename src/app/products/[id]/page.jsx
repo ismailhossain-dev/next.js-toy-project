@@ -5,6 +5,7 @@ import { getSingleProduct } from "@/actions/server/Product";
 import React from "react";
 import { FaCartPlus, FaStar } from "react-icons/fa";
 
+//seo work
 export async function generateMetadata({ params }) {
   const { id } = await params;
   const product = await getSingleProduct(id); // DB / API fetch
@@ -32,10 +33,15 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: product.title,
       description: "Fun and educational learning toy for kids.",
-      images: [product.image || "https://i.ibb.co.com/Ld7J2ZYq/image.png"],
+      images: [
+        product.image ||
+          "https://res.cloudinary.com/dttbhoaxs/image/upload/v1773547512/Screenshot_2026-03-15_095159_mdpp3q.png",
+      ],
     },
   };
 }
+
+//finished seo work
 
 const ProductDetails = async ({ params }) => {
   const { id } = await params;

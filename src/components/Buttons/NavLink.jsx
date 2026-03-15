@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 
 const NavLink = ({ href, children }) => {
   const path = usePathname(); //check whit path
-  console.log(path);
 
   return (
     <Link
