@@ -1,3 +1,4 @@
+//Product work all data and single data
 "use server";
 
 import { ObjectId } from "mongodb";

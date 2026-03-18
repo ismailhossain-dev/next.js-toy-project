@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import localFont from "next/font/local";
+import { ToastContainer } from "react-toastify";
+import NextAuthProvider from "@/provider/NextAuthProvider";
 //my own  font
 const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "800"],
@@ -100,14 +102,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html suppressHydrationWarning lang="en">
-      <body className={`${poppins.className} antialiased`}>
-        <nav className="w-11/12 mx-auto">
-          <Navbar />
-        </nav>
-        <div className="py-2 md:w-11/12 mx-auto">{children}</div>
-        <Footer />
-      </body>
-    </html>
+    <NextAuthProvider>
+      <html suppressHydrationWarning lang="en">
+        <body className={`${poppins.className} antialiased`}>
+          <nav className="w-11/12 mx-auto">
+            <Navbar />
+          </nav>
+          <div className="py-2 md:w-11/12 mx-auto">{children}</div>
+          <Footer />
+          <ToastContainer />
+        </body>
+      </html>
+    </NextAuthProvider>
   );
 }
