@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
 import React from "react";
@@ -8,8 +9,9 @@ import { FaCartPlus } from "react-icons/fa";
 const CartButton = ({ product }) => {
   const router = useRouter();
   const path = usePathname();
+  const session = useSession();
 
-  const isLogin = false;
+  const isLogin = true;
   const add2Cart = () => {
     if (isLogin) {
       alert(product._id);
