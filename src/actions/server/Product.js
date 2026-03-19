@@ -9,7 +9,7 @@ const { dbConnect, collections } = require("@/lib/dbConnect");
 // all data getting from mongodb and dbConnect.js
 export const getProducts = async () => {
   const products = await dbConnect(collections.PRODUCTS).find().toArray();
-  return products;
+  return JSON.parse(JSON.stringify(products));
 };
 
 //get single data

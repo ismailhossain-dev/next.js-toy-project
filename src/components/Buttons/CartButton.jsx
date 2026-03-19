@@ -9,16 +9,17 @@ import { FaCartPlus } from "react-icons/fa";
 const CartButton = ({ product }) => {
   const router = useRouter();
   const path = usePathname();
-  const session = useSession();
 
-  const isLogin = true;
+  const { data: session, status } = useSession();
+
   const add2Cart = () => {
-    if (isLogin) {
+    if (status === "authenticated") {
       alert(product._id);
     } else {
       router.push(`/login?callbackUrl=${path}`);
     }
   };
+
   return (
     <div>
       <button onClick={add2Cart} className="btn btn-primary w-full flex gap-2">
@@ -30,4 +31,3 @@ const CartButton = ({ product }) => {
 };
 
 export default CartButton;
-//V:5 10 minute complete

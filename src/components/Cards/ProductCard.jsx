@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
         </div>
 
         {/* Cart button */}
-        <CartButton />
+        <CartButton product={product} />
 
         {/* <CartButton product={{ ...product, _id: _id.toString() }}></CartButton> */}
         <Link href={`/products/${_id}`} className="btn btn-primary btn-outline mt-4 w-full">

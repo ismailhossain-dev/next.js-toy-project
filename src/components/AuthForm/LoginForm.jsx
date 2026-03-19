@@ -6,11 +6,16 @@ import { useForm } from "react-hook-form";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SocialButton from "./SocialButton";
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
+  //route check, kon route teke login page asche seta dekbe
+  const params = useSearchParams();
+  //console.log(params.get("callbackUrl") || "/");
+  //Register er jorno
+  const callBack = params.get("callbackUrl") || "";
+
   //React hook form use
   const {
     register,
@@ -23,7 +28,8 @@ const LoginForm = () => {
       email: data.email,
       password: data.password,
       //redirect use korle nextAuth custom page nive na .
-      redirect: false,
+      // redirect: false,
+      callbackUrl: params.get("callbackUrl") || "/",
     });
     console.log(result);
 
@@ -32,7 +38,6 @@ const LoginForm = () => {
       Swal.fire("error", "Email password not matched", "error");
     } else {
       Swal.fire("success", "Welcome to ToyBazaar", "success");
-      router.push("/");
     }
   };
   return (
@@ -99,8 +104,9 @@ const LoginForm = () => {
           <SocialButton />
 
           <p className="text-center text-sm mt-4">
-            New here?{" "}
-            <a href="/register" className="link link-primary">
+            New here?
+            {/* Callback use korsi kon page teke register page aschi seta dekar jorno */}
+            <a href={`/register?callbackUrl=${callBack}`} className="link link-primary">
               Create account
             </a>
           </p>
