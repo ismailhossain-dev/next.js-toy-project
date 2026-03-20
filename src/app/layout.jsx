@@ -108,7 +108,7 @@ export default function RootLayout({ children }) {
           <nav className="w-11/12 mx-auto">
             <Navbar />
           </nav>
-          <div className="py-2 md:w-11/12 mx-auto">{children}</div>
+          <div className="py-2 md:w-11/12 mx-auto min-h-[calc(100vh-300px)]">{children}</div>
           <Footer />
           <ToastContainer />
         </body>

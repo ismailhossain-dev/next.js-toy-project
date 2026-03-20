@@ -1,6 +1,7 @@
 "use client";
 import { postUser } from "@/actions/server/Auth";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
@@ -8,8 +9,9 @@ import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
-  //Try use react hook form
+  const router = useRouter(); //Try use react hook form
+  const params = useSearchParams();
+  const callbackUrl = params.get("/callbackUrl") || "/";
   const {
     register,
     handleSubmit,
@@ -21,8 +23,13 @@ const RegisterForm = () => {
     //src/action/server/Auth.j
     const result = await postUser(data);
     if (result.insertedId) {
-      toast.success("Signup successful.please login now");
-      router.push("/login");
+      //Auto Register work
+      const result = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        callbackUrl: callbackUrl,
+      });
+      toast.success("Login successful");
     }
   };
 
