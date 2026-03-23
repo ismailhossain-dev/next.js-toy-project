@@ -34,7 +34,7 @@ export const authOptions = {
       //check user age teke mongodb te ase kina and google diye login ase kina and jodi google diye login take tahole amra take google diye login korthe divo and amne login form diye login korthe divo na
       const isExist = await dbConnect(collections.USERS).findOne({
         email: user.email,
-        provider: account?.provider,
+        // provider: account?.provider,
       });
 
       if (isExist) {
@@ -54,14 +54,32 @@ export const authOptions = {
       const result = await dbConnect(collections.USERS).insertOne(newUser);
       return result.acknowledged;
     },
-    // async redirect({ url, baseUrl }) {
-    //   return baseUrl;
-    // },
-    // async session({ session, token, user }) {
-    //   return session;
-    // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   return token;
-    // },
+    //google login jwt work and jekono jaigai jodi user ke dekaite chai tahole amra ei vabe dekabo p:2 v:1
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
+    async session({ session, token, user }) {
+      if (token) {
+        session.role = token?.role;
+        session.email = token?.email;
+      }
+      return session;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (user) {
+        //role ta access korsi mongodb teke because ui te user dekabo and eta jwt kaj korbo
+        let dbUser;
+        if (account?.provider === "google") {
+          dbUser = await dbConnect(collections.USERS).findOne({
+            email: user.email,
+          });
+        }
+        //
+
+        token.role = dbUser?.role;
+        token.email = dbUser?.email;
+      }
+      return token;
+    },
   },
 };

@@ -7,7 +7,8 @@ import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
 import { useRouter, useSearchParams } from "next/navigation";
-import SocialButton from "./SocialButton";
+import { SocialButton } from "./SocialButton";
+
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   //route check, kon route teke login page asche seta dekbe
@@ -15,6 +16,8 @@ const LoginForm = () => {
   //console.log(params.get("callbackUrl") || "/");
   //Register er jorno
   const callBack = params.get("callbackUrl") || "";
+  console.log(callBack);
+  const router = useRouter();
 
   //React hook form use
   const {
@@ -28,16 +31,15 @@ const LoginForm = () => {
       email: data.email,
       password: data.password,
       //redirect use korle nextAuth custom page nive na .
-      // redirect: false,
-      callbackUrl: params.get("callbackUrl") || "/",
+      redirect: false,
     });
     console.log(result);
-
-    //error message jodi email & password bul dei tokon eta dekabe
+    //user jodi google diye login kore and jodi abr login form diye login korthe chai tokon user ke eta dekabe
     if (!result.ok) {
-      Swal.fire("error", "Email password not matched", "error");
+      Swal.fire("error", "Email password not matched, Try Google Login / Register", "error");
     } else {
       Swal.fire("success", "Welcome to ToyBazaar", "success");
+      router.push(callBack);
     }
   };
   return (

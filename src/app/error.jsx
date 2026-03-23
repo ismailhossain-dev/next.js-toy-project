@@ -1,4 +1,4 @@
-//ei error page ta dekabe jokon amr website crash ba amr website kichu bul takbe tokon ei error page ta use ke dekabe
+//eta dekabe jemon network chole gele and website crash korle
 "use client";
 import Link from "next/link";
 import React from "react";

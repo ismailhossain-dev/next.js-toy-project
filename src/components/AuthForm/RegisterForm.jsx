@@ -5,13 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
-import { toast } from "react-toastify";
+
+import Swal from "sweetalert2";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter(); //Try use react hook form
   const params = useSearchParams();
-  const callbackUrl = params.get("/callbackUrl") || "/";
+  const callBack = params.get("/callbackUrl") || "/";
   const {
     register,
     handleSubmit,
@@ -20,19 +21,25 @@ const RegisterForm = () => {
   } = useForm();
 
   const handleRegister = async (data) => {
-    //src/action/server/Auth.j
-    const result = await postUser(data);
-    if (result.insertedId) {
-      //Auto Register work
-      const result = await signIn("credentials", {
+    //src/action/server/auth.js er ekane data sent korechi
+    const res = await postUser(data);
+
+    if (res.insertedId) {
+      //auto login
+      const loginResult = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: callbackUrl,
+        redirect: false,
       });
-      toast.success("Login successful");
+
+      if (loginResult?.ok) {
+        Swal.fire("Success", "Registration successful", "success");
+        router.push(callBack);
+      }
+    } else {
+      Swal.fire("Error", "User already exists", "error");
     }
   };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
