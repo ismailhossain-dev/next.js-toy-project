@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import React from "react";
 //authOption ke user session e dekanor jorno kaj koresi
 const UserAccess = () => {
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
 
   if (status === "loading") {
     return <p>Loading...</p>;
@@ -12,7 +12,7 @@ const UserAccess = () => {
   return (
     <div>
       <h3>User Session Data:</h3>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };

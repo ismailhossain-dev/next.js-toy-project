@@ -33,7 +33,7 @@ const LoginForm = () => {
       //redirect use korle nextAuth custom page nive na .
       redirect: false,
     });
-    console.log(result);
+    // console.log(result);
     //user jodi google diye login kore and jodi abr login form diye login korthe chai tokon user ke eta dekabe
     if (!result.ok) {
       Swal.fire("error", "Email password not matched, Try Google Login / Register", "error");

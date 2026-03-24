@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { FaCartPlus, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import CartButton from "../Buttons/CartButton";
 
 const ProductCard = ({ product }) => {
@@ -39,9 +39,8 @@ const ProductCard = ({ product }) => {
         </div>
 
         {/* Cart button */}
-        <CartButton product={product} />
+        <CartButton product={{ ...product, _id: _id.toString() }} />
 
-        {/* <CartButton product={{ ...product, _id: _id.toString() }}></CartButton> */}
         <Link href={`/products/${_id}`} className="btn btn-primary btn-outline mt-4 w-full">
           View Details
         </Link>
