@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  console.log(session); //null value
+
   return (
     <div className="space-y-20">
       <p>{JSON.stringify(session)}</p>
