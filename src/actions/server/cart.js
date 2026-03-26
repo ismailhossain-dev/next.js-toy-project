@@ -1,9 +1,13 @@
 "use server";
+
+import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
+
 const { authOptions } = require("@/lib/authOption");
 //==========All add to cart work =============
 const { dbConnect, collections } = require("@/lib/dbConnect");
 const { getServerSession } = require("next-auth");
-const { use } = require("react");
+const { cache } = require("react");
 
 const cartCollection = dbConnect(collections.CART);
 
@@ -44,4 +48,51 @@ export const handleCart = async ({ product, inc = true }) => {
     const result = await cartCollection.insertOne(newData);
     return { success: result.acknowledged };
   }
+};
+
+//cart data gola niye astechi  amra kaj korar somoy try korbo try catch follow korthe
+
+export const getCart = async () => {
+  const { user } = await getServerSession(authOptions);
+  //user jodi na take tahole user data dive na
+  if (!user) return [];
+
+  //check korbo jey user login ache tar data mongodb te ache kina
+  const query = { email: user?.email };
+  const result = await cartCollection.find(query).toArray();
+  return result;
+};
+
+//delete function
+//cache korle server side data delete hobe reload deya chara | amra jeheto ekon api ta client side use korchi tai cache use korte hobe na
+export const deleteItemsFormCart = cache(async (id) => {
+  const { user } = await getServerSession(authOptions);
+  if (!user) return { success: false };
+  //id ta jodi 24 er soman na hoy
+  if (id.length != 24) {
+    return { success: false };
+  }
+  const query = { _id: new ObjectId(id) };
+
+  const result = await cartCollection.deleteOne(query);
+  //cache work
+  if (Boolean(result.deletedCount)) {
+    revalidatePath("/cart");
+  }
+  //
+  return { success: Boolean(result.deletedCount) };
+});
+
+//quantity + - click kaj ta korchi
+export const increaseItemDb = async (id, quantity) => {
+  const { user } = await getServerSession(authOptions);
+  if (!user) return { success: false };
+  //user ke 10 tar besi product add korte divo na
+  if (quantity > 10) {
+    return { success: false, message: "You cant buy 10 product at a time" };
+  }
+
+  const query = { _id: new ObjectId(id) };
+  //jey data gola update korbo
+  const result = await cartCollection.updateOne(query);
 };

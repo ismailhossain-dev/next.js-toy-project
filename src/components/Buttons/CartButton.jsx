@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 const CartButton = ({ product }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
-  console.log(session);
+
   //loading ta add cart button set kore disi
   const [isLoading, setIsLoading] = useState(false);
   const path = usePathname();
@@ -45,7 +45,7 @@ const CartButton = ({ product }) => {
   return (
     <div>
       <button
-        disabled={session.status === "loading" || isLoading}
+        disabled={status === "loading" || isLoading}
         onClick={add2Cart}
         className="btn btn-primary w-full flex gap-2"
       >

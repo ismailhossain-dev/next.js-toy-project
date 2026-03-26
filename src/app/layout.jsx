@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import localFont from "next/font/local";
 import { ToastContainer } from "react-toastify";
 import NextAuthProvider from "@/provider/NextAuthProvider";
+import { Suspense } from "react";
 //my own  font
 const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "800"],
@@ -108,7 +109,9 @@ export default function RootLayout({ children }) {
           <nav className="w-11/12 mx-auto">
             <Navbar />
           </nav>
-          <div className="py-2 md:w-11/12 mx-auto min-h-[calc(100vh-300px)]">{children}</div>
+          <Suspense>
+            <div className="py-2 md:w-11/12 mx-auto min-h-[calc(100vh-287px)]">{children}</div>
+          </Suspense>
           <Footer />
           <ToastContainer />
         </body>

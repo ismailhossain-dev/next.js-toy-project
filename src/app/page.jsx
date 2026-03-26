@@ -8,7 +8,7 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className="space-y-20">
+    <div className="space-y-20 overflow-hidden">
       <p>{JSON.stringify(session)}</p>
       {/* client access user */}
       <UserAccess />
